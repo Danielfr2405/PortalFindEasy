@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+.juriLoadingCover {
+  position: relative !important;
+}
+
+.juriLoadingCover .po-overlay-fixed {
+  position: absolute !important;
+}
+
+.jurAlignButton .po-field-container-content {
+  padding: 0px 0px;
+}
+
+.jurButton {
+  margin-left: 10px;
+}
+
+.po-toaster-info {
+  background-color: #0c9abe;
+}

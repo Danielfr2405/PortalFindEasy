@@ -1,0 +1,80 @@
+<div class="po-wrapper">
+  <po-loading-overlay
+    p-screen-lock="true"
+    [hidden]="hideLoading"
+    p-text="Carregando ..."
+  >
+  </po-loading-overlay>
+  <po-menu
+    p-collapsed="true"
+    p-filter
+    p-logo=""
+    p-short-logo=".\assets\logo_vermelho_e_verde.svg"
+    [p-menus]="menus"
+  >
+  </po-menu>
+
+  <po-toolbar
+    p-title="Find Easy"
+    [p-notification-actions]="listNotifications?.getValue()"
+    [p-notification-number]="10"
+    [p-profile-actions]="profileActions"
+    [p-profile]="profileUser"
+  >
+  </po-toolbar>
+
+  <po-page-default class="po-mb-4">
+    <p class="po-row po-font-text">
+      O mapa mostra a localização em tempo real, ou a última localização no caso
+      de o dispositivo perder a conexão ou ficar sem bateria pelo período de 5
+      minutos.
+    </p>
+    <br />
+    <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
+      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
+    <br />
+
+    <div class="po-row">
+      <po-tag
+        class="po-lg-10"
+        [p-color]="hasConnection ? 'color-10' : 'color-07'"
+        p-icon="true"
+        p-inverse="false"
+        p-label="Status"
+        p-orientation="horizontal"
+        [p-type]="hasConnection ? 'success' : 'danger'"
+        [p-value]="
+          hasConnection ? 'Dispositivo conectado' : 'Dispositivo sem conexão'
+        "
+      >
+      </po-tag>
+
+      <br />
+      <po-tag
+        class="po-pull-right"
+        p-color="color-01"
+        p-icon="true"
+        p-inverse="false"
+        p-label="Ultima conexão"
+        p-orientation="horizontal"
+        [p-value]="data_hora"
+      >
+      </po-tag>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <p>Legenda:</p>
+    <p>
+      <img src=".\assets\marker.svg" class="po-mt-2" width="20" height="30" />
+      Localização do objeto {{ endereco }}
+    </p>
+    <!-- div criada apenas para dar um espaçamento no final da pagina -->
+    <div class="po-row po-mb-5 po-mt-2"></div>
+    <div class="po-row po-mb-5 po-mt-2"></div>
+  </po-page-default>
+</div>
