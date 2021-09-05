@@ -19,7 +19,7 @@ import { LoginComponent } from './login/login.component';
     PoModule,
     PoTemplatesModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDK-sMfXQ4wrruu3Xaogt1ZGjtbgybPUW8',
+      apiKey: 'informe a chave de acesso da api do google maps',
     }),
   ],
   providers: [],
