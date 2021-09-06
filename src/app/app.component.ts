@@ -1,5 +1,4 @@
-import { HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   PoMenuItem,
   PoToolbarAction,
@@ -18,7 +17,7 @@ export interface MenuItemInterface extends PoMenuItem {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'Find Easy';
   endereco: string = '';
   texto: string = 'Wenceslau Braz - Cuidado com as cargas';
@@ -74,9 +73,7 @@ export class AppComponent {
   constructor(private feService: FindEasyService) {}
 
   ngOnInit() {
-    setTimeout(() => {
-      this.getDados();
-    }, 1000);
+    this.getDados();
   }
 
   getDados() {
@@ -93,6 +90,10 @@ export class AppComponent {
         }
       }
       this.hideLoading = true;
+
+      setTimeout(() => {
+        this.getDados();
+      }, 1000);
     });
   }
 }

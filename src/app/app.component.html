@@ -35,32 +35,33 @@
     </agm-map>
     <br />
 
-    <div class="po-row">
-      <po-tag
-        class="po-lg-10"
-        [p-color]="hasConnection ? 'color-10' : 'color-07'"
-        p-icon="true"
-        p-inverse="false"
-        p-label="Status"
-        p-orientation="horizontal"
-        [p-type]="hasConnection ? 'success' : 'danger'"
-        [p-value]="
-          hasConnection ? 'Dispositivo conectado' : 'Dispositivo sem conexão'
-        "
-      >
-      </po-tag>
+    <div class="po-pl-0 po-lg-12">
+      <div class="po-lg-9 po-pl-0">
+        <po-tag
+          [p-color]="hasConnection ? 'color-10' : 'color-07'"
+          p-icon="true"
+          p-inverse="false"
+          p-label="Status"
+          p-orientation="horizontal"
+          [p-type]="hasConnection ? 'success' : 'danger'"
+          [p-value]="
+            hasConnection ? 'Dispositivo conectado' : 'Dispositivo sem conexão'
+          "
+        >
+        </po-tag>
+      </div>
 
-      <br />
-      <po-tag
-        class="po-pull-right"
-        p-color="color-01"
-        p-icon="true"
-        p-inverse="false"
-        p-label="Ultima conexão"
-        p-orientation="horizontal"
-        [p-value]="data_hora"
-      >
-      </po-tag>
+      <div class="po-pull-right po-lg-2 po-pr-0">
+        <po-tag
+          p-color="color-01"
+          p-icon="true"
+          p-inverse="false"
+          p-label="Ultima conexão"
+          p-orientation="horizontal"
+          [p-value]="data_hora"
+        >
+        </po-tag>
+    </div>
     </div>
 
     <br />
