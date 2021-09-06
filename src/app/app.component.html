@@ -24,20 +24,15 @@
   </po-toolbar>
 
   <po-page-default class="po-mb-4">
-    <p class="po-row po-font-text">
-      O mapa mostra a localização em tempo real, ou a última localização no caso
-      de o dispositivo perder a conexão ou ficar sem bateria pelo período de 5
-      minutos.
-    </p>
-    <br />
-    <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
-      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-    </agm-map>
-    <br />
+    <div class="po-row">
+      <p class="po-lg-8 po-pl-0 po-mb-1 po-font-text">
+        O mapa mostra a localização em tempo real, ou a última localização no caso
+        de o dispositivo perder a conexão ou ficar sem bateria pelo período de 5
+        minutos.
+      </p>
 
-    <div class="po-pl-0 po-lg-12">
-      <div class="po-lg-9 po-pl-0">
-        <po-tag
+      <div class="po-lg-4 po-pr-0">
+        <po-tag class="po-pull-right"
           [p-color]="hasConnection ? 'color-10' : 'color-07'"
           p-icon="true"
           p-inverse="false"
@@ -50,37 +45,30 @@
         >
         </po-tag>
       </div>
+    </div>
 
-      <div class="po-pull-right po-lg-2 po-pr-0">
-        <po-tag
-          p-color="color-01"
-          p-icon="true"
-          p-inverse="false"
-          p-label="Ultima conexão"
-          p-orientation="horizontal"
-          [p-value]="data_hora"
-        >
-        </po-tag>
+    <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
+      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
+
+    <div class="po-p-0">
+      <p class="po-lg-3 po-mt-1 po-p-0 po-font-text-small-bold">
+        Última conexão: {{ data_hora }}
+      </p>
+
+      <div class="po-pull-right">
+        <p class="po-font-text-bold po-text-center">
+          <img
+            src=".\assets\marker_01.png"
+            width="15"
+            height="22"
+          />
+          Localização do objeto {{ endereco }}
+        </p>
       </div>
     </div>
 
-    <br />
-    <br />
-    <br />
-    <br />
-
-    <p>Legenda:</p>
-    <p>
-      <img
-        src=".\assets\marker_01.png"
-        class="po-mt-2"
-        width="20"
-        height="30"
-      />
-      Localização do objeto {{ endereco }}
-    </p>
     <!-- div criada apenas para dar um espaçamento no final da pagina -->
-    <div class="po-row po-mb-5 po-mt-2"></div>
     <div class="po-row po-mb-5 po-mt-2"></div>
   </po-page-default>
 </div>
