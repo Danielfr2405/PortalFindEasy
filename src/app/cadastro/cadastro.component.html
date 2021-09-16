@@ -1,1 +1,149 @@
-<p>cadastro works!</p>
+<div class="po-wrapper">
+  <po-loading-overlay
+    p-screen-lock="true"
+    [hidden]="hideLoading"
+    p-text="Carregando ..."
+  >
+  </po-loading-overlay>
+  <po-menu
+    p-collapsed="true"
+    p-filter
+    p-logo=""
+    p-short-logo=".\assets\logo_vermelho_e_verde.svg"
+    [p-menus]="menus"
+  >
+  </po-menu>
+
+  <po-toolbar
+    p-title="Find Easy"
+    [p-notification-actions]="listNotifications?.getValue()"
+    [p-notification-number]="10"
+    [p-profile-actions]="profileActions"
+    [p-profile]="profileUser"
+  >
+  </po-toolbar>
+  <po-page-default [p-breadcrumb]="breadcrumb" p-title="Cadastro Find Easy">
+    <form [formGroup]="formCadastro" class="po-mb-2">
+      <po-container p-no-shadow="true" class="po-lg-12 po-pr-0 po-pl-0">
+        <!-- loading -->
+        <po-loading-overlay
+          p-screen-lock="true"
+          [hidden]="isLoading"
+          p-text="Carregando ..."
+        >
+        </po-loading-overlay>
+        <div
+          class="po-row po-lg-8 po-offset-lg-2 po-offset-xl-2"
+          p-no-border="false"
+        >
+          <!-- Nome -->
+          <div class="po-lg-7 form-group">
+            <po-input
+              p-label="Nome *"
+              name="nome"
+              p-maxlength="60"
+              formControlName="nome"
+            >
+            </po-input>
+          </div>
+
+          <!-- data nascimento -->
+          <div class="po-lg-3 form-group">
+            <po-datepicker
+              name="dt_nasc"
+              p-label="Data de nascimento"
+              formControlName="dt_nasc"
+            >
+            </po-datepicker>
+          </div>
+        </div>
+
+        <div
+          class="po-row po-lg-8 po-offset-lg-2 po-offset-xl-2"
+          p-no-border="false"
+        >
+          <!-- email -->
+          <div class="po-lg-10 form-group">
+            <po-input
+              p-label="E-mail *"
+              name="email"
+              p-maxlength="30"
+              formControlName="email"
+            >
+            </po-input>
+          </div>
+        </div>
+
+        <div
+          class="po-row po-lg-8 po-offset-lg-2 po-offset-xl-2"
+          p-no-border="false"
+        >
+          <!-- usuario -->
+          <div class="po-lg-5 form-group">
+            <po-input
+              p-label="Usuário de login *"
+              name="usuario"
+              p-maxlength="15"
+              formControlName="usuario"
+            >
+            </po-input>
+          </div>
+          <!-- Senha -->
+          <div class="po-lg-5 form-group">
+            <po-password
+              name="password"
+              p-label="Senha de login *"
+              name="senha"
+              p-maxlength="15"
+              formControlName="senha"
+              p-clean="true"
+            >
+            </po-password>
+            <!-- <po-input
+              p-label="Senha de login"
+              name="senha"
+              p-maxlength="15"
+              formControlName="senha"
+            >
+            </po-input> -->
+          </div>
+        </div>
+        <div
+          class="po-row po-lg-8 po-offset-lg-2 po-offset-xl-2"
+          p-no-border="false"
+        >
+          <!-- id dispositivo -->
+          <div class="po-lg-5 form-group">
+            <po-input
+              p-label="Id do dispositivo *"
+              name="dispositivo"
+              p-maxlength="10"
+              formControlName="dispositivo"
+            >
+            </po-input>
+          </div>
+        </div>
+      </po-container>
+    </form>
+
+    <!-- Botões -->
+    <po-container p-no-border="true">
+      <div class="po-pull-right">
+        <!-- Cancelar -->
+        <po-button class="btn" p-label="Cancelar" (p-click)="onCancel()">
+        </po-button>
+
+        <!-- Salvar-->
+        <po-button
+          class="btn"
+          p-type="default"
+          p-label="Salvar"
+          p-type="primary"
+          [p-loading]="loadingBtnsave"
+          (p-click)="submitCadastro()"
+        >
+        </po-button>
+      </div>
+    </po-container>
+  </po-page-default>
+</div>

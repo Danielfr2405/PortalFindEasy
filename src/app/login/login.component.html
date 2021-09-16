@@ -1,1 +1,12 @@
-<p>login works!</p>
+<po-page-login
+  #login
+  p-hide-remember-user="true"
+  p-logo=".\assets\logo_vermelho_e_verde.svg"
+  p-secondary-logo=".\assets\maps.svg"
+  (p-login-submit)="loginSubmit($event)"
+  [p-literals]="loginCustomLiterals"
+  [p-loading]="bLoading"
+  p-product-name="Find Easy"
+  [p-loading]="isLoading"
+>
+</po-page-login>

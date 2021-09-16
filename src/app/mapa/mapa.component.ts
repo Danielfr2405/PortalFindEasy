@@ -3,18 +3,19 @@ import {
   PoMenuItem,
   PoToolbarAction,
   PoToolbarProfile,
-  PoTagType,
 } from '@po-ui/ng-components';
 import { BehaviorSubject } from 'rxjs';
-import { MenuItemInterface } from './mapa/mapa.component';
-import { FindEasyService } from './services/findEasy.service';
+import { FindEasyService } from '../services/findEasy.service';
 
+export interface MenuItemInterface extends PoMenuItem {
+  id: string;
+}
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: 'fe-mapa',
+  templateUrl: './mapa.component.html',
+  styleUrls: ['./mapa.component.css'],
 })
-export class AppComponent implements OnInit {
+export class MapaComponent implements OnInit {
   title = 'Find Easy';
   endereco: string = '';
   data_hora: string = '';
@@ -29,7 +30,13 @@ export class AppComponent implements OnInit {
 
   // Menus
   menus: Array<MenuItemInterface> = [
-    { id: '', label: 'Home', shortLabel: 'Home', icon: 'po-icon-home' },
+    {
+      id: '',
+      label: 'Home',
+      shortLabel: 'Home',
+      icon: 'po-icon-home',
+      /*, action: this.printMenuAction.bind(this) */
+    },
   ];
 
   toolbarActions: Array<PoToolbarAction> = [
