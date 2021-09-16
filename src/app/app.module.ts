@@ -29,7 +29,7 @@ import { MapaComponent } from './mapa/mapa.component';
     PoModule,
     PoTemplatesModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDK-sMfXQ4wrruu3Xaogt1ZGjtbgybPUW8',
+      apiKey: 'chave',
     }),
   ],
 
