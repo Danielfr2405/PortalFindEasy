@@ -1,26 +1,26 @@
-import { AgmCoreModule } from '@agm/core';
-import { LOCALE_ID, NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { AppRoutingModule, routes } from '../app-routing.module';
-import { AppComponent } from '../app.component';
+import { NgModule } from '@angular/core';
+import { PoComponentsModule, PoModule } from '@po-ui/ng-components';
 import { MapaComponent } from './mapa.component';
+import { AgmCoreModule } from '@agm/core';
+import { CommonModule } from '@angular/common';
+import { PoTemplatesModule } from '@po-ui/ng-templates';
+import { MapaRoutingModule } from './mapa-routing.module';
 
 @NgModule({
-  declarations: [],
-  imports: [
-    RouterModule.forRoot(routes),
-    AppRoutingModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDK-sMfXQ4wrruu3Xaogt1ZGjtbgybPUW8',
-    }),
-  ],
+	declarations: [MapaComponent],
+	imports: [
+		CommonModule,
+		PoModule,
+		PoComponentsModule,
+		PoTemplatesModule,
+		MapaRoutingModule,
+		AgmCoreModule.forRoot({
+			apiKey: 'AIzaSyDK-sMfXQ4wrruu3Xaogt1ZGjtbgybPUW8',
+		}),
+	],
 
-  providers: [
-    {
-      provide: LOCALE_ID,
-      useValue: 'pt-BR',
-    },
-  ],
-  bootstrap: [],
+	providers: [],
+
+	bootstrap: [MapaComponent],
 })
 export class MapaModule {}

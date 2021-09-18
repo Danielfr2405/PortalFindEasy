@@ -1,105 +1,58 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  PoMenuItem,
-  PoToolbarAction,
-  PoToolbarProfile,
-} from '@po-ui/ng-components';
-import { BehaviorSubject } from 'rxjs';
 import { FindEasyService } from '../services/findEasy.service';
+import { Utils } from '../utils/functions.utils';
 
-export interface MenuItemInterface extends PoMenuItem {
-  id: string;
-}
 @Component({
-  selector: 'fe-mapa',
-  templateUrl: './mapa.component.html',
-  styleUrls: ['./mapa.component.css'],
+	selector: 'fe-mapa',
+	templateUrl: './mapa.component.html',
+	styleUrls: ['./mapa.component.css'],
 })
 export class MapaComponent implements OnInit {
-  title = 'Find Easy';
-  endereco: string = '';
-  data_hora: string = '';
-  msgStatus: string = '';
-  lat: number = 0;
-  lng: number = 0;
-  zoom: number = 18;
-  typeStatus: any;
-  corTag: any;
-  hasConnection: boolean = false;
-  hideLoading: boolean = false;
+	title = 'Find Easy';
+	endereco: string = '';
+	dataHora: string = '';
+	msgStatus: string = '';
+	lat: number = 0;
+	lng: number = 0;
+	zoom: number = 18;
+	typeStatus: any;
+	corTag: any;
+	hasConnection: boolean = false;
+	hideLoading: boolean = true;
 
-  // Menus
-  menus: Array<MenuItemInterface> = [
-    {
-      id: '',
-      label: 'Home',
-      shortLabel: 'Home',
-      icon: 'po-icon-home',
-      /*, action: this.printMenuAction.bind(this) */
-    },
-  ];
+	constructor(private feService: FindEasyService) {}
 
-  toolbarActions: Array<PoToolbarAction> = [
-    {
-      label: 'Item 1',
-      icon: 'po-icon-folder',
-      separator: true,
-      //action: ,
-      visible: false,
-    },
-  ];
+	ngOnInit() {
+		if (Utils.isEmpty(window.localStorage.getItem('tokenFE'))) {
+			this.getDados();
+		}
+	}
 
-  /**
-   * Criação dos itens para o menu do Perfil
-   */
-  profileActions: Array<PoToolbarAction> = [
-    {
-      icon: 'po-icon-exit',
-      label: 'Exit',
-      // action: this.logoff.bind(this), type: 'danger'
-    },
-  ];
+	/**
+	 * Função responsável por buscar as coordenadas do mapa
+	 */
+	getDados() {
+		this.feService.get('FindById/1', 'Get Dados').subscribe((resp) => {
+			if (resp.hasOwnProperty('data') && !Utils.isEmpty(resp.data)) {
+				this.hasConnection = true;
+				const dados = resp.data[0].hasOwnProperty('Atual')
+					? resp.data[0].Atual
+					: resp.data[0].hasOwnProperty('Anterior')
+					? resp.data[0].Anterior
+					: undefined;
 
-  // Perfil do usuário
-  profileUser: PoToolbarProfile = {
-    avatar:
-      'https://img.freepik.com/psd-gratuitas/homem-jovem-sorrindo-e-apontar_1187-6834.jpg?size=338&ext=jpg',
-    title: 'Usuário teste',
-    subtitle: 'usuario@gmail.com',
-  };
+				if (!Utils.isEmpty(dados)) {
+					this.lat = dados.latitude;
+					this.lng = dados.longitude;
+					this.dataHora = dados.data_inclusao;
+				}
+			}
 
-  /**
-   * Variável que alimenta a lista de notificações do Menu!
-   */
-  listNotifications: BehaviorSubject<Array<NotificationAction>>;
+			this.hideLoading = true;
 
-  constructor(private feService: FindEasyService) {}
-
-  ngOnInit() {
-    this.getDados();
-  }
-
-  /**
-   * Função responsável por buscar as coordenadas do mapa
-   */
-  getDados() {
-    this.feService.get('FindById/1', 'Get Dados').subscribe((resp) => {
-      if (resp !== null && resp !== undefined) {
-        if (resp.hasOwnProperty('data')) {
-          this.hasConnection = true;
-          const dados = resp.data[0].Atual;
-          this.lat = dados.latitude;
-          this.lng = dados.longitude;
-          this.data_hora = ' ' + dados.data_inclusao + ' hs';
-        } else {
-          this.data_hora = resp.data[0].Anterior.data_inclusao;
-        }
-      }
-      this.hideLoading = true;
-
-      setTimeout(() => {
-        this.getDados();
-      }, 10000);
-    });
-  }
+			setTimeout(() => {
+				this.getDados();
+			}, 1000);
+		});
+	}
 }

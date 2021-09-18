@@ -1,70 +1,47 @@
 <div class="po-wrapper">
-  <po-loading-overlay
-    p-screen-lock="true"
-    [hidden]="hideLoading"
-    p-text="Carregando ..."
-  >
-  </po-loading-overlay>
-  <po-menu
-    p-collapsed="true"
-    p-filter
-    p-logo=""
-    p-short-logo=".\assets\logo_vermelho_e_verde.svg"
-    [p-menus]="menus"
-  >
-  </po-menu>
+	<po-loading-overlay p-screen-lock="true" [hidden]="hideLoading" p-text="Carregando ...">
+	</po-loading-overlay>
 
-  <po-toolbar
-    p-title="Find Easy"
-    [p-notification-actions]="listNotifications?.getValue()"
-    [p-notification-number]="10"
-    [p-profile-actions]="profileActions"
-    [p-profile]="profileUser"
-  >
-  </po-toolbar>
-  <po-page-default class="po-mb-4">
-    <div class="po-row">
-      <p class="po-lg-8 po-pl-0 po-mb-1 po-font-text">
-        O mapa mostra a localização em tempo real, ou a última localização no
-        caso de o dispositivo perder a conexão ou ficar sem bateria pelo período
-        de 5 minutos.
-      </p>
+	<po-page-default class="po-mb-4">
+		<div class="po-row">
+			<p class="po-lg-8 po-pl-0 po-mb-1 po-font-text">
+				O mapa mostra a localização em tempo real, ou a última localização no caso de o
+				dispositivo perder a conexão ou ficar sem bateria pelo período de 5 minutos.
+			</p>
 
-      <div class="po-lg-4 po-pr-0">
-        <po-tag
-          class="po-pull-right"
-          [p-color]="hasConnection ? 'color-10' : 'color-07'"
-          p-icon="true"
-          p-inverse="false"
-          p-label="Status"
-          p-orientation="horizontal"
-          [p-type]="hasConnection ? 'success' : 'danger'"
-          [p-value]="
-            hasConnection ? 'Dispositivo conectado' : 'Dispositivo sem conexão'
-          "
-        >
-        </po-tag>
-      </div>
-    </div>
+			<div class="po-lg-4 po-pr-0">
+				<po-tag
+					class="po-pull-right"
+					[p-color]="hasConnection ? 'color-10' : 'color-07'"
+					p-icon="true"
+					p-inverse="false"
+					p-label="Status"
+					p-orientation="horizontal"
+					[p-type]="hasConnection ? 'success' : 'danger'"
+					[p-value]="hasConnection ? 'Dispositivo conectado' : 'Dispositivo sem conexão'"
+				>
+				</po-tag>
+			</div>
+		</div>
 
-    <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
-      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-    </agm-map>
+		<agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
+			<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+		</agm-map>
 
-    <div class="po-p-0">
-      <p class="po-lg-3 po-mt-1 po-p-0 po-font-text-small-bold">
-        Última conexão: {{ data_hora }}
-      </p>
+		<div class="po-p-0">
+			<div class="po-lg-3 po-mt-1 po-p-0 po-font-text-small-bold">
+				Última conexão: {{ dataHora }}
+			</div>
 
-      <div class="po-pull-right">
-        <p class="po-font-text-bold po-text-center">
-          <img src=".\assets\marker_01.png" width="15" height="22" />
-          Localização do objeto {{ endereco }}
-        </p>
-      </div>
-    </div>
+			<div class="po-pull-right">
+				<p class="po-font-text-bold po-text-center">
+					<img src=".\assets\marker_01.png" width="15" height="22" />
+					Localização do objeto {{ endereco }}
+				</p>
+			</div>
+		</div>
 
-    <!-- div criada apenas para dar um espaçamento no final da pagina -->
-    <div class="po-row po-mb-5 po-mt-2"></div>
-  </po-page-default>
+		<!-- div criada apenas para dar um espaçamento no final da pagina -->
+		<div class="po-row po-mb-5 po-mt-2"></div>
+	</po-page-default>
 </div>

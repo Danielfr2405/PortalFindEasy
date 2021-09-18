@@ -1,38 +1,24 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
-import { LoginComponent } from './login/login.component';
-import { MapaComponent } from './mapa/mapa.component';
 
 export const routes: Routes = [
-  {
-    path: 'home',
-    component: AppComponent,
-    children: [
-      {
-        path: 'mapa',
-        loadChildren: () =>
-          import('./mapa/mapa.module').then((m) => m.MapaModule),
-      },
-    ],
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
-  {
-    path: 'cadastro',
-    component: CadastroComponent,
-  },
-  {
-    path: 'mapa',
-    component: MapaComponent,
-  },
+	{
+		path: '',
+		loadChildren: () => import('./menu/menu.module').then((m) => m.MenuModule),
+	},
+	{
+		path: 'login',
+		loadChildren: () => import('./login/login.module').then((m) => m.LoginModule),
+	},
+	{
+		path: 'register',
+		component: CadastroComponent,
+	},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+	imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+	exports: [RouterModule],
 })
 export class AppRoutingModule {}
