@@ -15,7 +15,7 @@ import { MapaRoutingModule } from './mapa-routing.module';
 		PoTemplatesModule,
 		MapaRoutingModule,
 		AgmCoreModule.forRoot({
-			apiKey: 'AIzaSyDK-sMfXQ4wrruu3Xaogt1ZGjtbgybPUW8',
+			apiKey: 'informe a chave de acesso da api do google maps',
 		}),
 	],
 
