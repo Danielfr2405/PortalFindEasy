@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PoMenuItem, PoToolbarAction, PoToolbarProfile } from '@po-ui/ng-components';
+import { FindEasyService } from '../services/findEasy.service';
 import { Utils } from '../utils/functions.utils';
 
 @Component({
@@ -23,7 +24,7 @@ export class MenuComponent implements OnInit {
 
 	// Perfil do usuário
 	profileUser: PoToolbarProfile = {
-		avatar: 'https://img.freepik.com/psd-gratuitas/homem-jovem-sorrindo-e-apontar_1187-6834.jpg?size=338&ext=jpg',
+		avatar: '',
 		title: 'Usuário teste',
 		subtitle: 'usuario@gmail.com',
 	};
@@ -42,19 +43,21 @@ export class MenuComponent implements OnInit {
 			label: 'Item 1',
 			icon: 'po-icon-folder',
 			separator: true,
-			//action: ,
 			visible: false,
 		},
 	];
 
-	constructor(private router: Router) {}
+	constructor(private router: Router, private feService: FindEasyService) {}
 
 	ngOnInit(): void {
 		this.configPage();
 	}
 
 	configPage() {
-		if (Utils.isEmpty(window.localStorage.getItem('tokenFE'))) {
+		const userId: string = window.localStorage.getItem('userId');
+		if (!Utils.isEmpty(window.localStorage.getItem('tokenFE')) && !Utils.isEmpty(userId)) {
+			this.getInfoUser(userId);
+		} else {
 			this.router.navigate(['/login']);
 		}
 	}
@@ -62,5 +65,18 @@ export class MenuComponent implements OnInit {
 	logoff() {
 		window.localStorage.clear();
 		this.router.navigate(['/login']);
+	}
+
+	getInfoUser(userId: string) {
+		this.feService.get(`/FindUser/${userId}`, '').subscribe((infoUserId) => {
+			console.log(infoUserId);
+			if (infoUserId.data.hasOwnProperty('usuario')) {
+				this.profileUser = {
+					title: `${infoUserId.data.nome} ${infoUserId.data.sobrenome}`,
+					subtitle: infoUserId.data.email,
+					avatar: '',
+				};
+			}
+		});
 	}
 }

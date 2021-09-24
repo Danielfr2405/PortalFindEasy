@@ -12,7 +12,6 @@ import { RouterModule } from '@angular/router';
 	declarations: [AppComponent],
 	imports: [
 		RouterModule.forRoot(routes),
-		RouterModule.forChild(routes),
 		BrowserModule,
 		FormsModule,
 		PoComponentsModule,

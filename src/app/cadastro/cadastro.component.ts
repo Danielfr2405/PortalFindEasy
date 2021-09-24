@@ -98,7 +98,8 @@ export class CadastroComponent implements OnInit {
 		this.loadingBtnsave = true;
 		if (this.formCadastro.valid) {
 			const request: Cadastro = this.formCadastro.value;
-			request.password = btoa(request.password);
+			request.usuario = request.usuario.trim();
+			request.password = btoa(request.password.trim());
 
 			this.feService.post('/Auth', 'Cadastro de Usuário', request).subscribe((resp) => {
 				if (!Utils.isEmpty(resp.data)) {

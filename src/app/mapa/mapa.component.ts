@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FindEasyService } from '../services/findEasy.service';
 import { Utils } from '../utils/functions.utils';
 
@@ -20,19 +21,30 @@ export class MapaComponent implements OnInit {
 	hasConnection: boolean = false;
 	hideLoading: boolean = true;
 
-	constructor(private feService: FindEasyService) {}
+	constructor(private feService: FindEasyService, private router: Router) {}
 
 	ngOnInit() {
-		if (Utils.isEmpty(window.localStorage.getItem('tokenFE'))) {
-			this.getDados();
+		const userId: string = window.localStorage.getItem('userId');
+		if (!Utils.isEmpty(window.localStorage.getItem('tokenFE')) && !Utils.isEmpty(userId)) {
+			this.getInfoUser(userId);
+		} else {
+			this.router.navigate(['/login']);
 		}
+	}
+
+	getInfoUser(userId: string) {
+		this.feService.get(`/FindUser/${userId}`, '').subscribe((infoUserId) => {
+			if (infoUserId.data.hasOwnProperty('usuario')) {
+				this.getDados(infoUserId.data.dispositivo);
+			}
+		});
 	}
 
 	/**
 	 * Função responsável por buscar as coordenadas do mapa
 	 */
-	getDados() {
-		this.feService.get('FindById/1', 'Get Dados').subscribe((resp) => {
+	getDados(userId: string) {
+		this.feService.get(`FindById/${userId}`, 'Get Dados').subscribe((resp) => {
 			if (resp.hasOwnProperty('data') && !Utils.isEmpty(resp.data)) {
 				this.hasConnection = true;
 				const dados = resp.data[0].hasOwnProperty('Atual')
@@ -51,7 +63,7 @@ export class MapaComponent implements OnInit {
 			this.hideLoading = true;
 
 			setTimeout(() => {
-				this.getDados();
+				this.getDados(userId);
 			}, 1000);
 		});
 	}
