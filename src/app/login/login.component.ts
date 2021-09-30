@@ -5,6 +5,7 @@ import { PoPageLogin, PoPageLoginComponent, PoPageLoginLiterals } from '@po-ui/n
 import { FindEasyService } from '../services/findEasy.service';
 import { litLogin } from './login.literals';
 import { Utils } from '../utils/functions.utils';
+import { AppComponent } from '../app.component';
 
 @Component({
 	selector: 'fe-login',
@@ -21,8 +22,11 @@ export class LoginComponent {
 	constructor(
 		private router: Router,
 		private feService: FindEasyService,
-		public poNotification: PoNotificationService
-	) {}
+		public poNotification: PoNotificationService,
+		private home: AppComponent
+	) {
+		this.home.hideMenu = true;
+	}
 
 	/**
 	 * Realiza Autenticação Local - Sem mingle

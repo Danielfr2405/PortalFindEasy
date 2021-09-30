@@ -7,9 +7,12 @@ import { PoTemplatesModule } from '@po-ui/ng-templates';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { CadastroComponent } from './cadastro/cadastro.component';
+import { AgmCoreModule } from '@agm/core';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
-	declarations: [AppComponent],
+	declarations: [AppComponent, CadastroComponent, LoginComponent],
 	imports: [
 		RouterModule.forRoot(routes),
 		BrowserModule,
@@ -20,6 +23,9 @@ import { RouterModule } from '@angular/router';
 		AppRoutingModule,
 		PoModule,
 		PoTemplatesModule,
+		AgmCoreModule.forRoot({
+			apiKey: 'informe a chave de acesso da api do google maps',
+		}),
 	],
 
 	providers: [

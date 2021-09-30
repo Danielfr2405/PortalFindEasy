@@ -1,15 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AppComponent } from './app.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
 	{
 		path: '',
-		loadChildren: () => import('./menu/menu.module').then((m) => m.MenuModule),
+		component: AppComponent,
+	},
+	{
+		path: 'monitoring',
+		component: AppComponent,
 	},
 	{
 		path: 'login',
-		loadChildren: () => import('./login/login.module').then((m) => m.LoginModule),
+		component: LoginComponent,
 	},
 	{
 		path: 'register',
@@ -18,7 +24,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+	imports: [RouterModule.forRoot(routes)],
 	exports: [RouterModule],
 })
 export class AppRoutingModule {}
