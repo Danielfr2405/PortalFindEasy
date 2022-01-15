@@ -21,10 +21,12 @@ export class AppComponent implements OnInit {
 	lat: number = 0;
 	lng: number = 0;
 	zoom: number = 18;
+	count: number = 0;
 	typeStatus: any;
 	corTag: any;
 	hasConnection: boolean = false;
 	hideLoading: boolean = true;
+	isContinue: boolean = true;
 
 	/**
 	 * Criação dos itens para o menu do Perfil
@@ -82,6 +84,7 @@ export class AppComponent implements OnInit {
 	}
 
 	logoff() {
+		this.isContinue = false;
 		window.localStorage.clear();
 		this.hideMenu = true;
 		this.router.navigate(['/login']);
@@ -90,6 +93,7 @@ export class AppComponent implements OnInit {
 	getInfoUser(userId: string) {
 		this.feService.get(`/FindUser/${userId}`, '').subscribe((infoUserId) => {
 			if (infoUserId.data.hasOwnProperty('usuario')) {
+				this.isContinue = true;
 				this.getDados(infoUserId.data.dispositivo);
 				this.profileUser = {
 					title: `${infoUserId.data.nome} ${infoUserId.data.sobrenome}`,
@@ -105,29 +109,31 @@ export class AppComponent implements OnInit {
 	 * Função responsável por buscar as coordenadas do mapa
 	 */
 	getDados(userId: string) {
-		this.feService.get(`FindById/${userId}`, 'Get Dados').subscribe((resp) => {
-			if (resp.hasOwnProperty('data') && !Utils.isEmpty(resp.data)) {
-				this.hasConnection = true;
-				const dados = resp.data[0].hasOwnProperty('Atual')
-					? resp.data[0].Atual
-					: resp.data[0].hasOwnProperty('Anterior')
-					? resp.data[0].Anterior
-					: undefined;
+		if (this.isContinue) {
+			this.feService.get(`FindById/${userId}`, 'Get Dados').subscribe((resp) => {
+				if (resp.hasOwnProperty('data') && !Utils.isEmpty(resp.data)) {
+					this.hasConnection = true;
+					const dados = resp.data[0].hasOwnProperty('Atual')
+						? resp.data[0].Atual
+						: resp.data[0].hasOwnProperty('Anterior')
+						? resp.data[0].Anterior
+						: undefined;
 
-				if (!Utils.isEmpty(dados)) {
-					this.lat = dados.latitude;
-					this.lng = dados.longitude;
-					this.dataHora = Utils.makeFormatDate(new Date(dados.data_inclusao));
-					this.validConnection(resp, dados.data_inclusao);
+					if (!Utils.isEmpty(dados)) {
+						this.lat = dados.latitude;
+						this.lng = dados.longitude;
+						this.dataHora = Utils.makeFormatDate(new Date(dados.data_inclusao));
+						this.validConnection(resp, dados.data_inclusao);
+					}
 				}
-			}
 
-			this.hideLoading = true;
+				this.hideLoading = true;
 
-			setTimeout(() => {
-				this.getDados(userId);
-			}, 1000);
-		});
+				setTimeout(() => {
+					this.getDados(userId);
+				}, 1000);
+			});
+		}
 	}
 
 	validConnection(resp, dateResp: string) {

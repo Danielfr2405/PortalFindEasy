@@ -52,6 +52,8 @@ export class LoginComponent {
 						this.isLoading = false;
 						this.poNotification.error(vldLogin.message);
 					}
+				} else {
+					this.isLoading = false;
 				}
 			});
 	}

@@ -21,7 +21,11 @@ export class Utils {
 		const mes: string = (data.getMonth() + 1).toString().padStart(2, '0');
 		const ano: number = data.getFullYear();
 		const hora: number = data.getHours();
-		const mintuto: number = data.getMinutes();
-		return `${dia}/${mes}/${ano} às ${hora}:${mintuto}hs`;
+		const minuto: string =
+			data.getMinutes().toString().length === 1
+				? '0' + data.getMinutes().toString()
+				: data.getMinutes().toString();
+
+		return `${dia}/${mes}/${ano} às ${hora}:${minuto}hs`;
 	}
 }
